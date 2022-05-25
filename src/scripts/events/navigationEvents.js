@@ -1,3 +1,7 @@
+import { booksOnSale, getBooks } from '../../api/bookData';
+import { showBooks } from '../components/pages/books';
+import { getAuthors } from '../../api/authorData';
+import { showAuthors } from '../components/pages/authors';
 import signOut from '../helpers/auth/signOut';
 
 // navigation events
@@ -8,11 +12,13 @@ const navigationEvents = () => {
 
   // TODO: BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
+    booksOnSale().then((saleBooksArray) => showBooks(saleBooksArray));
     console.warn('CLICKED SALE BOOKS');
   });
 
   // TODO: ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
+    getBooks().then((booksArray) => showBooks(booksArray));
     console.warn('CLICKED ALL BOOKS');
   });
 
@@ -21,7 +27,8 @@ const navigationEvents = () => {
   // 2. Convert the response to an array because that is what the makeAuthors function is expecting
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
-    console.warn('CLICKED AUTHORS');
+    getAuthors().then((authorsArray) => showAuthors(authorsArray));
+    console.warn('CLICKED ALL AUTHORS');
   });
 
   // STRETCH: SEARCH

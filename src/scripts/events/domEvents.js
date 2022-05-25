@@ -1,11 +1,17 @@
+import { deleteBook } from '../../api/bookData';
+import { showBooks } from '../components/pages/books';
+import { showAuthors } from '../components/pages/authors';
+import viewBookDetails from '../../api/mergedData';
+import viewBook from '../components/pages/viewBook';
+
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
     // TODO: CLICK EVENT FOR DELETING A BOOK
     if (e.target.id.includes('delete-book')) {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
-        console.warn('CLICKED DELETE BOOK', e.target.id);
-        console.warn(e.target.id.split('--'));
+        const [, firebaseKey] = e.target.split('--');
+        deleteBook(firebaseKey).then((booksArray) => showBooks(booksArray));
       }
     }
 
@@ -17,20 +23,20 @@ const domEvents = () => {
     // TODO: CLICK EVENT EDITING/UPDATING A BOOK
     if (e.target.id.includes('edit-book-btn')) {
       console.warn('EDIT BOOK', e.target.id);
-      console.warn(e.target.id.split('--'));
     }
+
     // TODO: CLICK EVENT FOR VIEW BOOK DETAILS
     if (e.target.id.includes('view-book-btn')) {
-      console.warn('VIEW BOOK', e.target.id);
-      console.warn(e.target.id.split('--'));
+      const [, bookFirebaseKey] = e.target.id.split('--');
+      viewBookDetails(bookFirebaseKey).then((bookAuthorObject) => viewBook(bookAuthorObject));
     }
 
     // FIXME: ADD CLICK EVENT FOR DELETING AN AUTHOR
-    if (e.target.id.includes('delete-author-btn')) {
+    if (e.target.id.includes('delete-author')) {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
-        console.warn('DELETE AUTHOR', e.target.id);
-        console.warn(e.target.id.split('--'));
+        const [, firebaseKey] = e.target.split('--');
+        deleteBook(firebaseKey).then((authorsArray) => showAuthors(authorsArray));
       }
     }
 
