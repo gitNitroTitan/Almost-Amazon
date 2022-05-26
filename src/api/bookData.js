@@ -13,7 +13,7 @@ const getBooks = () => new Promise((resolve, reject) => {
 
 // TODO: DELETE BOOK
 const deleteBook = (firebaseKey) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/books/${firebaseKey}.json`)
+  axios.delete(`${dbUrl}/books/${firebaseKey}.json`)
     .then(() => {
       getBooks().then((booksArray) => resolve(booksArray));
     })
@@ -26,7 +26,7 @@ const getSingleBook = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-// TODO: CREATE BOOK
+// TODO: CREATE BOOK****
 const createBook = () => {};
 
 // TODO: UPDATE BOOK
