@@ -1,8 +1,8 @@
 import { booksOnSale, getBooks } from '../../api/bookData';
 import { showBooks } from '../components/pages/books';
-import { getAuthors } from '../../api/authorData';
-import { showAuthors } from '../components/pages/authors';
+import { showAuthors, emptyAuthors } from '../components/pages/authors';
 import signOut from '../helpers/auth/signOut';
+import { getAuthors, getFavoriteAuthor } from '../../api/authorData';
 
 // navigation events
 const navigationEvents = () => {
@@ -27,10 +27,20 @@ const navigationEvents = () => {
   // 2. Convert the response to an array because that is what the makeAuthors function is expecting
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
-    getAuthors().then((authorsArray) => showAuthors(authorsArray));
+    getAuthors().then((authorsArray) => {
+      if (authorsArray) {
+        showAuthors(authorsArray);
+      } else {
+        emptyAuthors();
+      }
+    });
     console.warn('CLICKED ALL AUTHORS');
   });
 
+  document.querySelector('#favorites').addEventListener('click', () => {
+    getFavoriteAuthor().then((favoriteAuthorsArray) => showAuthors(favoriteAuthorsArray));
+    console.warn('CLICKED FAVORITES');
+  });
   // STRETCH: SEARCH
   document.querySelector('#search').addEventListener('keyup', (e) => {
     const searchValue = document.querySelector('#search').value.toLowerCase();
