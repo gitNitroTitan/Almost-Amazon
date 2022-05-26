@@ -4,7 +4,8 @@ import { showAuthors, emptyAuthors } from '../components/pages/authors';
 import signOut from '../helpers/auth/signOut';
 import { getAuthors, getFavoriteAuthor } from '../../api/authorData';
 
-// navigation events
+// navigation eventsavorite
+
 const navigationEvents = () => {
   // LOGOUT BUTTON
   document.querySelector('#logout-button')
