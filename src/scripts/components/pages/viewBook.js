@@ -14,7 +14,7 @@ const viewBook = (obj) => {
      </div>
    </div>
    <div class="text-white ms-5 details">
-     <h5>${obj.title} by ${obj.authorObject.first_name} ${obj.authorObject.last_name} ${obj.authorObject.favorite ? '<span class="badge bg-danger"><i class="fa fa-heart" aria-hidden="true"></i></span>' : ''}</h5>
+     <h5>${obj.title} by ${obj.authorObject.first_name} ${obj.authorObject.last_name} ${obj.authorObject.favorite ? '<span class="iconify" data-icon="typcn:star" style="color: goldenrod;" data-width="20" data-height="20"></span>' : ''}</h5>
      Author Email: <a href="mailto:${obj.authorObject.email}">${obj.authorObject.email}</a>
      <p>${obj.description || ''}</p>
      <hr>
