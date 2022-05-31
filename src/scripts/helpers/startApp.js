@@ -1,5 +1,5 @@
-import { getBooks, deleteBook } from '../../api/bookData';
-import { getAuthors, getFavoriteAuthor, deleteAuthor } from '../../api/authorData';
+import { getBooks } from '../../api/bookData';
+
 import logoutButton from '../components/buttons/logoutButton';
 import domBuilder from '../components/domBuilder';
 import navBar from '../components/navBar';
@@ -7,8 +7,6 @@ import domEvents from '../events/domEvents';
 import formEvents from '../events/formEvents';
 import navigationEvents from '../events/navigationEvents';
 import { showBooks } from '../components/pages/books';
-import { showAuthors } from '../components/pages/authors';
-import addBookForm from '../components/forms/addBookForm';
 
 const startApp = () => {
   domBuilder(); // BUILD THE DOM
@@ -18,11 +16,6 @@ const startApp = () => {
   logoutButton(); // ADD THE LOGOUT BUTTON COMPONENT
   navigationEvents(); // ATTACH THE EVENT LISTENERS TO THE NAVBAR
   // TODO: Put all books on the DOM on App load
-  getAuthors().then((authorsArray) => showAuthors(authorsArray));
   getBooks().then((booksArray) => showBooks(booksArray));
-  getFavoriteAuthor();
-  addBookForm();
-  deleteBook();
-  deleteAuthor();
 };
 export default startApp;

@@ -11,13 +11,13 @@ const navigationEvents = () => {
   document.querySelector('#logout-button')
     .addEventListener('click', signOut);
 
-  // TODO: BOOKS ON SALE
+  // BOOKS ON SALE // call function>.then((taco array)=>function to put cards on DOM(taco array))
   document.querySelector('#sale-books').addEventListener('click', () => {
     booksOnSale().then((saleBooksArray) => showBooks(saleBooksArray));
     console.warn('CLICKED SALE BOOKS');
   });
 
-  // TODO: ALL BOOKS
+  // ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
     getBooks().then((booksArray) => showBooks(booksArray));
     console.warn('CLICKED ALL BOOKS');
