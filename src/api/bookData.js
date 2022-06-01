@@ -5,9 +5,15 @@ import firebaseConfig from './apiKeys';
 const dbUrl = firebaseConfig.databaseURL;
 
 // GET BOOKS
-const getBooks = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/books.json`)
-    .then((response) => resolve(Object.values(response.data)))
+const getBooks = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/books.json?orderBy="uid"&equalTo="${uid}"`)
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    })
     .catch((error) => reject(error));
 });
 
@@ -46,10 +52,16 @@ const updateBook = (bookObj) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 // FILTER BOOKS ON SALE
-const booksOnSale = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/books.json?orderBy="sale"&equalTo=true`)
-    .then((response) => resolve(Object.values(response.data)))
-    .catch((error) => reject(error));
+const booksOnSale = (uid) => new Promise((resolve, reject) => {
+  getBooks(uid)
+    .then((userBooks) => {
+      const favBooks = userBooks.filter((book) => (book.sale));
+      resolve(favBooks);
+    }).catch((error) => reject(error));
+
+  // axios.get(`${dbUrl}/books.json?orderBy="sale"&equalTo=true`)
+  //   .then((response) => resolve(Object.values(response.data)))
+  //   .catch((error) => reject(error));
 });
 
 // TODO: STRETCH...SEARCH BOOKS
