@@ -1,9 +1,9 @@
-import { createBook, updateBook } from '../../api/bookData';
-import { createAuthor, updateAuthor } from '../../api/authorData';
+import { createBook, getBooks, updateBook } from '../../api/bookData';
+import { createAuthor, getAuthors, updateAuthor } from '../../api/authorData';
 import { showBooks } from '../components/pages/books';
 import { showAuthors } from '../components/pages/authors';
 
-const formEvents = () => {
+const formEvents = (uid) => {
   document.querySelector('#main-container').addEventListener('submit', (e) => {
     e.preventDefault();
     // CLICK EVENT FOR SUBMITTING FORM FOR ADDING A BOOK
@@ -16,6 +16,7 @@ const formEvents = () => {
         description: document.querySelector('#description').value,
         sale: document.querySelector('#sale').checked,
         author_id: document.querySelector('#author_id').value,
+        uid
       };
       createBook(bookObject).then((booksArray) => showBooks(booksArray));
     }
@@ -34,9 +35,10 @@ const formEvents = () => {
         author_id: document.querySelector('#author_id').value,
         firebaseKey
       };
-      updateBook(bookObject).then(showBooks);
+      updateBook(bookObject).then(() => {
+        getBooks().then((response) => showBooks(response));
+      });
     }
-
     // CLICK EVENT FOR SUBMITTING FORM FOR ADDING AN AUTHOR
     if (e.target.id.includes('submit-author')) {
       console.warn('CLICKED SUBMIT AUTHOR');
@@ -44,11 +46,13 @@ const formEvents = () => {
         first_name: document.querySelector('#first_name').value,
         last_name: document.querySelector('#last_name').value,
         email: document.querySelector('#email').value,
+        favorite: document.querySelector('#favorite').checked,
+        uid
       };
       createAuthor(authorObject).then((authorArray) => showAuthors(authorArray));
     }
 
-    // FIXME:ADD CLICK EVENT FOR EDITING AN AUTHOR
+    // ADD CLICK EVENT FOR EDITING AN AUTHOR
     if (e.target.id.includes('update-author')) {
       const [, firebaseKey] = e.target.id.split('--');
       console.warn('CLICKED UPDATE AUTHOR', e.target.id);
@@ -57,9 +61,12 @@ const formEvents = () => {
         first_name: document.querySelector('#first_name').value,
         last_name: document.querySelector('#last_name').value,
         email: document.querySelector('#email').value,
+        favorite: document.querySelector('#favorite').checked,
         firebaseKey
       };
-      updateAuthor(authorObject).then(showAuthors);
+      updateAuthor(authorObject).then(() => {
+        getAuthors(uid).then((response) => showAuthors(response));
+      });
     }
   });
 };

@@ -4,9 +4,15 @@ import firebaseConfig from './apiKeys';
 const dbUrl = firebaseConfig.databaseURL;
 
 // GET ALL AUTHORS
-const getAuthors = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/authors.json`)
-    .then((response) => resolve(Object.values(response.data)))
+const getAuthors = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/authors.json?orderBy="uid"&equalTo="${uid}"`)
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    })
     .catch((error) => reject(error));
 });
 
@@ -29,10 +35,16 @@ const getSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 // GET FAVORITE AUTHOR
-const getFavoriteAuthor = () => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/authors.json?orderBy="favorite"&equalTo=true`)
-    .then((response) => resolve(Object.values(response.data)))
-    .catch((error) => reject(error));
+const getFavoriteAuthor = (uid) => new Promise((resolve, reject) => {
+  getAuthors(uid)
+    .then((userAuthors) => {
+      const favAuthors = userAuthors.filter((author) => (author.favorite));
+      resolve(favAuthors);
+    }).catch((error) => reject(error));
+
+  // axios.get(`${dbUrl}/authors.json?orderBy="favorite"&equalTo=true`)
+  //   .then((response) => resolve(Object.values(response.data)))
+  //   .catch((error) => reject(error));
 });
 
 // DELETE AUTHOR
