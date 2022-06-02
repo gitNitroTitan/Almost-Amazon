@@ -15,7 +15,7 @@ const domEvents = (uid) => {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
         const [, firebaseKey] = e.target.id.split('--');
-        deleteBook(uid, firebaseKey).then((booksArray) => showBooks(booksArray));
+        deleteBook(firebaseKey).then((booksArray) => showBooks(booksArray));
       }
     }
 
@@ -35,7 +35,7 @@ const domEvents = (uid) => {
       getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj));
     }
 
-    // CLICK EVENT FOR VIEW BOOK DETAILS
+    // CLICK EVENT FOR VIEW BOOK DETAILS //good
     if (e.target.id.includes('view-book-btn')) {
       console.warn('clicked view-btn');
       const [, bookFirebaseKey] = e.target.id.split('--');
@@ -43,23 +43,23 @@ const domEvents = (uid) => {
       viewBookDetails(bookFirebaseKey).then((bookAuthorObject) => viewBook(bookAuthorObject));
     }
 
-    // CLICK EVENT FOR DELETING AN AUTHOR
+    // CLICK EVENT FOR DELETING AN AUTHOR //good
     if (e.target.id.includes('delete-author-btn')) {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
         console.warn('delete author clicked', e.target.id);
         const [, firebaseKey] = e.target.id.split('--');
         deleteAuthorBooks(firebaseKey).then(showAuthors);
-      }
+      } // do not add uid to deleteAuthorBooks above
     }
 
-    // CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
+    // CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR //good
     if (e.target.id.includes('add-author-btn')) {
       console.warn('Add Author', e.target.id);
       addAuthorForm(uid);
     }
 
-    // CLICK EVENT FOR VIEW SINGLE AUTHOR
+    // CLICK EVENT FOR VIEW SINGLE AUTHOR //good
     if (e.target.id.includes('view-author-btn')) {
       console.warn('clicked view-author-btn');
       const [, authorFirebaseKey] = e.target.id.split('--');
