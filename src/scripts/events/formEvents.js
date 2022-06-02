@@ -35,8 +35,8 @@ const formEvents = (uid) => {
         author_id: document.querySelector('#author_id').value,
         firebaseKey
       };
-      updateBook(bookObject).then(() => {
-        getBooks().then((response) => showBooks(response));
+      updateBook(bookObject, uid).then(() => {
+        getBooks(uid).then((response) => showBooks(response));
       });
     }
     // CLICK EVENT FOR SUBMITTING FORM FOR ADDING AN AUTHOR
@@ -49,7 +49,7 @@ const formEvents = (uid) => {
         favorite: document.querySelector('#favorite').checked,
         uid
       };
-      createAuthor(authorObject).then((authorArray) => showAuthors(authorArray));
+      createAuthor(uid, authorObject).then((authorArray) => showAuthors(authorArray));
     }
 
     // ADD CLICK EVENT FOR EDITING AN AUTHOR
