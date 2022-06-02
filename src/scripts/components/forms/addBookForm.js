@@ -3,7 +3,7 @@ import renderToDOM from '../../helpers/renderToDom';
 import selectAuthor from './selectAuthor';
 
 // USING THIS FORM FOR BOTH CREATE AND UPDATE
-const addBookForm = (obj = {}) => {
+const addBookForm = (uid, obj = {}) => {
   clearDom();
   // below this: ternary in logic to check if there is a firebaseKey. Will look for update-book if true ...if false will look for submit-book to enter new book. allows to use form in more than one instance.
   const domString = `
@@ -35,7 +35,7 @@ const addBookForm = (obj = {}) => {
     </form>`;
 
   renderToDOM('#form-container', domString);
-  selectAuthor(`${obj.author_id || ''}`);
+  selectAuthor(uid, `${obj.author_id || ''}`);
 };
 
 export default addBookForm;
