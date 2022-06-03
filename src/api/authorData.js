@@ -64,9 +64,9 @@ const getAuthorsBooks = (authorId) => new Promise((resolve, reject) => {
 });
 
 // UPDATE AUTHOR // good
-const updateAuthor = (authorObject) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/authors/${authorObject.firebaseKey}.json`, authorObject)
-    .then(() => getAuthors(authorObject.uid).then(resolve))
+const updateAuthor = (authorId) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/authors/${authorId.firebaseKey}.json`, authorId)
+    .then(() => getAuthors(authorId.uid).then(resolve))
     .catch((error) => reject(error));
 });
 
