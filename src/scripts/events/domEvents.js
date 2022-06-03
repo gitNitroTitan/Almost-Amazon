@@ -31,8 +31,8 @@ const domEvents = (uid) => {
       const [, firebaseKey] = e.target.id.split('--');
 
       // 1.pass the book***
-      // 2.pass the book oject to book form***
-      getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj));
+      // 2.pass the book object to book form*** along with uid
+      getSingleBook(firebaseKey).then((bookObject) => addBookForm(uid, bookObject));
     }
 
     // CLICK EVENT FOR VIEW BOOK DETAILS //good

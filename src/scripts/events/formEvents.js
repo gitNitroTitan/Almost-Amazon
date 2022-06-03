@@ -33,10 +33,9 @@ const formEvents = (uid) => {
         description: document.querySelector('#description').value,
         sale: document.querySelector('#sale').checked,
         author_id: document.querySelector('#author_id').value,
-        firebaseKey,
-        uid
+        firebaseKey
       };
-      updateBook(bookObject, uid).then(() => {
+      updateBook(bookObject).then(() => {
         getBooks(uid).then((response) => showBooks(response));
       });
     }
